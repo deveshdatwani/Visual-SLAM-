@@ -7,7 +7,12 @@ The details of the project can be looked at here - https://rbe549.github.io/fall
 ### Demo
 
 Input samples
-[] (https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/Imgs.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/Imgs.png" width="350">
+</p>
 
 Output example
-[] (https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/Imgs.png)
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/VSfM.png" width="350">
+</p>
