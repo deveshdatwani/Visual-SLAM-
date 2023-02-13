@@ -6,13 +6,14 @@ The details of the project can be looked at here - https://rbe549.github.io/fall
 
 ### Demo
 
-Input samples
+<p align="center"> Input samples </p>
+
 <p align="center">
-  <img src="https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/Imgs.png" width="350">
+  <img src="https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/Imgs.png" width="800">
 </p>
 
-Output example
+<p align="center"> Output example </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/VSfM.png" width="350">
+  <img src="https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/VSfM.png" width="800">
 </p>
