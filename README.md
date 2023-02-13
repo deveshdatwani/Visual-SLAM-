@@ -7,7 +7,7 @@ The details of the project can be looked at here - https://rbe549.github.io/fall
 ### Demo
 
 Input samples
-[!input images](https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/Imgs.png)
+[] (https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/Imgs.png)
 
 Output example
-[!output](https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/Imgs.png)
+[] (https://raw.githubusercontent.com/deveshdatwani/Visual-SLAM/main/P3Data/Imgs.png)
