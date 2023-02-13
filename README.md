@@ -1,5 +1,5 @@
 ## Visual-SLAM
 
-Formated Ubuntu 20.04 without ever pushing the scripts! (Going to miss ROS1) 
+This project was a part of the RBE 549 Course Computer Vision at Worcester Polytechnic Institute under Prof Nitin Sanket. 
 
-Rebuilding this in the last week of Jan 2023. Star if you want to stay tuned. Nothing too fancy, just plain old feature matching with RANSAC, bundle adjustment. 
+The details of the project can be looked at here - https://rbe549.github.io/fall2022/proj/p3/
