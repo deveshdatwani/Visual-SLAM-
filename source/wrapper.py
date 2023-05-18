@@ -20,9 +20,4 @@ if __name__ == '__main__':
     mapper = featureMapper(draw_mathes=False)
     keypoints1, keypoints2, matches = mapper.match(image1, image2)
 
-    one_match = matches[np.random.randint(100)]
-
-    pt1 = keypoints1[one_match.trainIdx].pt
-    pt2 = keypoints2[one_match.queryIdx].pt
-
-    
+    F = utils.fundamental_matrix(keypoints1, keypoints2, matches, 200)

@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 from scipy.linalg import svd
 from matplotlib import pyplot as plt
 
@@ -19,8 +20,37 @@ def draw_matches(image1, image2, keypoints1, keypoints2, matches):
     return None
 
 
-def fundamental_matrix(points1, points2):
-    F, mask = cv2.findFundamentalMat(points1, points2, cv2.FM_LMEDS)
+def compute_fundamental_matrix(pts1, pts2):
+    A = np.zeros(shape=(8,9))
+
+    x = pts1[:,0]
+    y = pts1[:,1]
+    x_dash = pts2[:,0]
+    y_dash = pts2[:,1]
+
+    for i in range(8):
+        A[i] = np.array([x[i]*x_dash[i], x[i]*y_dash[i], x[i], y[i]*x_dash[i], y[i]*y_dash[i], y[i], x_dash[i], y_dash[i], 1])
+
+    U, S, V = svd(A, full_matrices=True)
+    F = V.transpose()[:,-1].reshape((3,3))
     
-    return F, mask
+    return F
+
+
+def fundamental_matrix(keypoints1, keypoints2, matches, N):
+    points1 = []
+    points2 = []
+
+    for match in matches[:N]:
+        points1.append(keypoints1[match.queryIdx].pt)
+        points2.append(keypoints2[match.imgIdx].pt)
+
+    points1, points2 = np.float32(points1), np.float32(points2)
+
+    # NEED TO IMPLEMENT RANSAC
+
+    pts1, pts2 = points1[np.random.randint(0, 8, 8)], points2[np.random.randint(0, 8, 8)]
+    F = compute_fundamental_matrix(pts1, pts2)
+
+    return F
 
