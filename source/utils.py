@@ -1,8 +1,15 @@
 import cv2
 import numpy as np
+from scipy.io import loadmat
 from scipy.linalg import svd
 from matplotlib import pyplot as plt
 
+
+def get_k():
+    K_ADDRESS = '/home/deveshdatwani/Sfm/P3Data/calibration.txt'
+    k_params = np.loadtxt(K_ADDRESS)
+
+    return k_params
 
 def draw_key_points(image, keypoints):
     img2 = cv2.drawKeypoints(image, keypoints, None, color=(0,255,0), flags=0)
@@ -53,4 +60,11 @@ def fundamental_matrix(keypoints1, keypoints2, matches, N):
     F = compute_fundamental_matrix(pts1, pts2)
 
     return F
+
+
+def essential_matrix(F):
+    k = get_k()
+    E = np.dot(np.dot(k.T, F), k)
+
+    return E 
 

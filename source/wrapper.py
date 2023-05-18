@@ -8,8 +8,8 @@ from feature_extraction import featureExtractor
 
 
 if __name__ == '__main__': 
-    IMAGE1 = '3.png'
-    IMAGE2 = '4.png'
+    IMAGE1 = '1.png'
+    IMAGE2 = '2.png'
     
     SAMPLE_IMAGE1 = os.path.join('/home/deveshdatwani/Sfm/P3Data', IMAGE1)
     SAMPLE_IMAGE2 = os.path.join('/home/deveshdatwani/Sfm/P3Data', IMAGE2)
@@ -21,3 +21,8 @@ if __name__ == '__main__':
     keypoints1, keypoints2, matches = mapper.match(image1, image2)
 
     F = utils.fundamental_matrix(keypoints1, keypoints2, matches, 200)
+
+    K = utils.get_k()
+    E = utils.essential_matrix(F)
+
+    print(E / E[2,2])
