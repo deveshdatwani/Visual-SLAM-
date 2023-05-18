@@ -21,15 +21,13 @@ class featureMapper():
 
         keypoints1 = np.asarray(keypoints1)
         keypoints2 = np.asarray(keypoints2)
-
-        if self.draw_mathes:
-            matched_images = cv2.drawMatches(image1, keypoints1, image2, keypoints2, matches[:150], None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
-            plt.imshow(matched_images)
-            plt.show()   
-
         matches = sorted(matches, key = lambda x:x.distance)
 
-
+        if self.draw_mathes:
+            matched_images = cv2.drawMatches(image1, keypoints1, image2, keypoints2, matches, None)
+            plt.imshow(matched_images)
+            plt.show()   
+            
         return keypoints1, keypoints2, matches     
 
 

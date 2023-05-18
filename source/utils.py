@@ -21,5 +21,6 @@ def draw_matches(image1, image2, keypoints1, keypoints2, matches):
 
 def fundamental_matrix(points1, points2):
     F, mask = cv2.findFundamentalMat(points1, points2, cv2.FM_LMEDS)
-    return None
+    
+    return F, mask
 

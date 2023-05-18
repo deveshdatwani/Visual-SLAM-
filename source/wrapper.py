@@ -1,6 +1,7 @@
 import os
 import cv2
-import utils    
+import utils  
+import numpy as np  
 from matplotlib import pyplot as plt
 from feature_mapping import featureMapper
 from feature_extraction import featureExtractor
@@ -19,12 +20,9 @@ if __name__ == '__main__':
     mapper = featureMapper(draw_mathes=False)
     keypoints1, keypoints2, matches = mapper.match(image1, image2)
 
-    fundamental_matrix = utils.fundamental_matrix(keypoints1, keypoints2)
+    one_match = matches[np.random.randint(100)]
 
-    print(fundamental_matrix)
-
-    print(f'total matches {len(matches)}')
-
+    pt1 = keypoints1[one_match.trainIdx].pt
+    pt2 = keypoints2[one_match.queryIdx].pt
 
     
-
