@@ -10,24 +10,21 @@ class featureMapper():
     def __init__(self, algorithm='FLANN', draw_mathes=False):
         self.algorithm = algorithm
         self.feature_extractor = featureExtractor()
-        self.matcher = cv2.BFMatcher()
+        self.matcher = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
         self.draw_mathes = False
     
 
     def match(self, image1, image2):
         keypoints1, img1_descriptor = self.feature_extractor.detect_and_compute(image1)
         keypoints2, img2_descriptor = self.feature_extractor.detect_and_compute(image2)
-        matches = self.matcher.knnMatch(img1_descriptor, img2_descriptor, k=2)
+        matches = self.matcher.match(img1_descriptor, img2_descriptor)
 
         if self.draw_mathes:
             utils.draw_matches(image1, keypoints1, image2, keypoints2, matches)
 
-        good = []
-        for m, n in matches:
-            if m.distance < 0.80 * n.distance:
-                good.append([m])
+        matches = sorted(matches, key = lambda x:x.distance)
 
-        matched_images = cv2.drawMatchesKnn(image1, keypoints1, image2, keypoints2, good, None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+        matched_images = cv2.drawMatches(image1, keypoints1, image2, keypoints2, matches[:150], None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
         plt.imshow(matched_images)
         plt.show()        
 
