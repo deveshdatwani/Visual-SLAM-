@@ -1,4 +1,5 @@
 import cv2
+from scipy.linalg import svd
 from matplotlib import pyplot as plt
 
 
@@ -16,3 +17,9 @@ def draw_matches(image1, image2, keypoints1, keypoints2, matches):
     plt.show()
 
     return None
+
+
+def fundamental_matrix(points1, points2):
+    F, mask = cv2.findFundamentalMat(points1, points2, cv2.FM_LMEDS)
+    return None
+
