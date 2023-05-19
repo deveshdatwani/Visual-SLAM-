@@ -44,7 +44,7 @@ def compute_fundamental_matrix(pts1, pts2):
     return F
 
 
-def fundamental_matrix(keypoints1, keypoints2, matches, N):
+def match(keypoints1, keypoints2, matches, N):
     points1 = []
     points2 = []
 
@@ -54,10 +54,33 @@ def fundamental_matrix(keypoints1, keypoints2, matches, N):
 
     points1, points2 = np.float32(points1), np.float32(points2)
 
+    return points1, points2
+
+
+def fundamental_matrix(keypoints1, keypoints2, matches, N):
+    points1 = []
+    points2 = []
+
+    for match in matches[:N]:
+        points1.append(keypoints1[match.queryIdx].pt)
+        points2.append(keypoints2[match.imgIdx].pt)
+
+    points1, points2 = np.float32(points1), np.float32(points2)
+    # points1, points2 = normalize_coordinates(points1, points2)
+   
     # NEED TO IMPLEMENT RANSAC
 
-    pts1, pts2 = points1[np.random.randint(0, 100, 8)], points2[np.random.randint(0, 100, 8)]
+    IDX = np.random.randint(0, N, 8)
+
+    pts1, pts2 = points1[IDX], points2[IDX]
     F = compute_fundamental_matrix(pts1, pts2)
+
+    F = np.reshape(F, (3,3))
+    U, S, V = svd(F, full_matrices=True)
+    S = np.diag(S)
+    S[2,2] = 0
+
+    F = np.dot(np.dot(U, S), V)
 
     return F
 
@@ -65,6 +88,14 @@ def fundamental_matrix(keypoints1, keypoints2, matches, N):
 def essential_matrix(F):
     k = get_k()
     E = np.dot(np.dot(k.T, F), k)
+
+    E = np.reshape(E, (3,3))
+
+    U, S, V = svd(E, full_matrices=True)
+    S = np.diag(S)
+    S[2,2] = 0
+
+    E = np.dot(np.dot(U, S), V)
 
     return E 
 
@@ -96,8 +127,5 @@ def normalize_coordinates(pts1, pts2):
 
     pts2 = np.column_stack((pts2, np.ones(shape=(len(pts2)))))
     NORMAL_PTS2 = np.dot(np.dot(VAR_2, MEAN_2), pts2.T)
-
-    print(NORMAL_PTS1.T.shape)
-    print(NORMAL_PTS2.T.shape)
 
     return NORMAL_PTS1.T, NORMAL_PTS2.T

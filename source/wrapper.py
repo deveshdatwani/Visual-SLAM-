@@ -10,6 +10,7 @@ from feature_extraction import featureExtractor
 if __name__ == '__main__': 
     IMAGE1 = '1.png'
     IMAGE2 = '2.png'
+    N = 20
     
     SAMPLE_IMAGE1 = os.path.join('/home/deveshdatwani/Sfm/P3Data', IMAGE1)
     SAMPLE_IMAGE2 = os.path.join('/home/deveshdatwani/Sfm/P3Data', IMAGE2)
@@ -19,13 +20,21 @@ if __name__ == '__main__':
 
     mapper = featureMapper(draw_mathes=False)
     keypoints1, keypoints2, matches = mapper.match(image1, image2)
-
-    F = utils.fundamental_matrix(keypoints1, keypoints2, matches, 200)
-
-    keypoints1, keypoints2 = np.array([i.pt for i in keypoints1]), np.array([j.pt for j in keypoints2])
-
+    
+    F = utils.fundamental_matrix(keypoints1, keypoints2, matches, N)
     K = utils.get_k()
     E = utils.essential_matrix(F)
 
-    normalized_keypoints1, normalized_keypoints = utils.normalize_coordinates(keypoints1, keypoints2)
+    matched_pt1, matched_pt2 = utils.match(keypoints1, keypoints2, matches, N)
+    # matched_pt1, matched_pt2 = utils.normalize_coordinates(matched_pt1, matched_pt2)
+    
 
+    Idxpt = np.random.randint(20)
+
+    PT1 = matched_pt1[Idxpt]
+    PT2 = matched_pt2[Idxpt]
+    
+    PT1 = np.append(matched_pt1[0], 1)
+    PT2 = np.append(matched_pt2[0], 1)
+
+    print(np.dot(np.dot(PT1, E), PT2))
