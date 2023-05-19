@@ -25,4 +25,15 @@ if __name__ == '__main__':
     K = utils.get_k()
     E = utils.essential_matrix(F)
 
-    print(E / E[2,2])
+    match = matches[0]
+
+    PT1 = list(keypoints1[match.queryIdx].pt)
+    PT2 = list(keypoints2[match.imgIdx].pt)
+
+    PT1.append(1)
+    PT2.append(1)
+
+    PROJ_PT2 = np.dot(np.dot(PT1, E), PT2)
+    
+    print(f'{PROJ_PT2}')
+

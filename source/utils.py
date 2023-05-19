@@ -56,7 +56,7 @@ def fundamental_matrix(keypoints1, keypoints2, matches, N):
 
     # NEED TO IMPLEMENT RANSAC
 
-    pts1, pts2 = points1[np.random.randint(0, 8, 8)], points2[np.random.randint(0, 8, 8)]
+    pts1, pts2 = points1[np.random.randint(0, 100, 8)], points2[np.random.randint(0, 100, 8)]
     F = compute_fundamental_matrix(pts1, pts2)
 
     return F
