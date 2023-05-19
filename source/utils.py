@@ -68,3 +68,36 @@ def essential_matrix(F):
 
     return E 
 
+
+def normalize_coordinates(pts1, pts2):
+    X1 = pts1[:,0]
+    Y1 = pts1[:,1]
+    X2 = pts2[:,0]
+    Y2 = pts2[:,1]
+
+    X1_MEAN = X1.mean()
+    Y1_MEAN = Y1.mean()
+    X2_MEAN = X2.mean()
+    Y2_MEAN = Y2.mean()
+
+    X1_STD = X1.std()
+    Y1_STD = Y1.std()
+    X2_STD = X2.std()
+    Y2_STD = Y2.std()
+
+    VAR_1 = np.array([[X1_STD, 0,0 ],[0, Y1_STD, 0],[0,0,1]])
+    MEAN_1 = np.array([[1,0,-X1_MEAN], [0,1,-Y1_MEAN], [0,0,1]])
+
+    pts1 = np.column_stack((pts1, np.ones(shape=(len(pts1)))))
+    NORMAL_PTS1 = np.dot(np.dot(VAR_1, MEAN_1), pts1.T)
+
+    VAR_2 = np.array([[X2_STD, 0,0 ],[0, Y2_STD, 0],[0,0,1]])
+    MEAN_2 = np.array([[1,0,-X2_MEAN], [0,1,-Y2_MEAN], [0,0,1]])
+
+    pts2 = np.column_stack((pts2, np.ones(shape=(len(pts2)))))
+    NORMAL_PTS2 = np.dot(np.dot(VAR_2, MEAN_2), pts2.T)
+
+    print(NORMAL_PTS1.T.shape)
+    print(NORMAL_PTS2.T.shape)
+
+    return NORMAL_PTS1.T, NORMAL_PTS2.T
