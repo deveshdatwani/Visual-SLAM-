@@ -66,7 +66,7 @@ def fundamental_matrix(keypoints1, keypoints2, matches, N):
         points2.append(keypoints2[match.imgIdx].pt)
 
     points1, points2 = np.float32(points1), np.float32(points2)
-    # points1, points2 = normalize_coordinates(points1, points2)
+    points1, points2 = normalize_coordinates(points1, points2)
    
     # NEED TO IMPLEMENT RANSAC
 

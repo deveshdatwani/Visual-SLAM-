@@ -22,19 +22,16 @@ if __name__ == '__main__':
     keypoints1, keypoints2, matches = mapper.match(image1, image2)
     
     F = utils.fundamental_matrix(keypoints1, keypoints2, matches, N)
+
+    F = np.around(F, decimals=3)
+
     K = utils.get_k()
     E = utils.essential_matrix(F)
 
     matched_pt1, matched_pt2 = utils.match(keypoints1, keypoints2, matches, N)
-    # matched_pt1, matched_pt2 = utils.normalize_coordinates(matched_pt1, matched_pt2)
+    matched_pt1, matched_pt2 = utils.normalize_coordinates(matched_pt1, matched_pt2)
     
+    PT1, PT2 = matched_pt1[0], matched_pt2[0]
 
-    Idxpt = np.random.randint(20)
+    print(np.dot(np.dot(PT1, F), PT2))
 
-    PT1 = matched_pt1[Idxpt]
-    PT2 = matched_pt2[Idxpt]
-    
-    PT1 = np.append(matched_pt1[0], 1)
-    PT2 = np.append(matched_pt2[0], 1)
-
-    print(np.dot(np.dot(PT1, E), PT2))
